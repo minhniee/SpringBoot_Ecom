@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Spring Boot Application</title>
+</head>
+<body>
+<h1>Welcome to My Spring Boot Application!</h1>
+<p>This is a sample HTML page.</p>
+
+<div id="products"></div> <!-- Container to display products -->
+
+
+<script>
+    fetch('http://localhost:8082/api/v1/products/all')
+        .then(resp => {
+            if (!resp.ok) {
+                throw new Error('Network response was not ok ' + resp.statusText);
+            }
+            return resp.json();
+        })
+        .then(data => {
+            console.log(data);
+            const productsContainer = document.getElementById('products');
+
+            // if (data && data.length > 0) {
+                data.forEach(product => {
+                    const productElement = document.createElement('div');
+                    productElement.textContent = `Product Name: ${product.name}, Price: ${product.price}`;
+                    productsContainer.appendChild(productElement);
+                });
+            // } else {
+            //     productsContainer.textContent = 'No products available.';
+            // }
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+</script>
+</body>
+</html>

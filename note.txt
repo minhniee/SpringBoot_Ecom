@@ -1,0 +1,3 @@
+
+
+    // if in cart have many goods but user buy some product on cart (not yet processed)
